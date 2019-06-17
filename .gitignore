@@ -8,3 +8,4 @@ pid
 sohot.db
 venv
 .idea
+__pycache__
