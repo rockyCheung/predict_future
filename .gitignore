@@ -1,0 +1,10 @@
+# Created by pytest automatically.
+.pytest_cache
+build
+dist
+predict_future.egg-info
+*.log
+pid
+sohot.db
+venv
+.idea
