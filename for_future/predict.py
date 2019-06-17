@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import os
 from for_future import logger
 import click
-import time
+from datetime import *
 
 class PredictFuture(Prophet):
     def __init__(self,
@@ -78,7 +78,7 @@ class PredictFuture(Prophet):
         plt.show()
     def saveDataFrame(self,path):
         generate_file_name = lambda name:'predict_'+ name + '.csv'
-        svaeFile = os.path.join(path, generate_file_name(str(time.localtime(time.time()))))
+        svaeFile = os.path.join(path, generate_file_name(str(datetime.now())))
         self._forecast.to_csv(svaeFile , index=False, header=False)
 
 '''
