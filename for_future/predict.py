@@ -1,12 +1,11 @@
 # -*- coding:utf-8 -*-
 import pandas as pd
 from fbprophet import Prophet
-from fbprophet.plot import plot_plotly
-import plotly.offline as py
 import matplotlib.pyplot as plt
-import sys,os
+import os
 from for_future import logger
 import click
+import time
 
 class PredictFuture(Prophet):
     def __init__(self,
@@ -77,9 +76,14 @@ class PredictFuture(Prophet):
         # 预测的成分分析绘图，展示预测中的趋势、周效应和年度效应
         self.plot_components(self._forecast);
         plt.show()
+    def saveDataFrame(self,path):
+        generate_file_name = lambda name:'predict_'+ name + '.csv'
+        svaeFile = os.path.join(path, generate_file_name(str(time.time())))
+        self._forecast.to_csv(svaeFile , index=False, header=False)
 
 '''
-'A number of string aliases are given to useful common time series frequencies. We will refer to these aliases as offset aliases.'
+freq :
+    A number of string aliases are given to useful common time series frequencies. We will refer to these aliases as offset aliases.
                                                                                                'B	business day frequency'
                                                                                                'C	custom business day frequency'
                                                                                                'D	calendar day frequency'
@@ -115,9 +119,11 @@ class PredictFuture(Prophet):
               help='Draw forecast line.True is draw,default False.')
 @click.option('--draw_trend', type=bool , is_flag=False , prompt=False,
               help='Draw trend line.True is draw,default False.')
+@click.option('--save', type=str , prompt=False,
+              help='Save result path.')
 @click.option('--hd', type=bool , is_flag=False , prompt=False,
               help='Show the help detail.')
-def predict(top,draw_forecast,draw_trend,hd):
+def predict(top,draw_forecast,draw_trend,save,hd):
     path = click.prompt('Please enter sample CSV file path', type=str)
     freq = click.prompt('Please enter freq,freq choice [M,D,3M,5D,H...]', type=str)
     periods = click.prompt('Please enter periods', type=int)  
@@ -131,7 +137,6 @@ def predict(top,draw_forecast,draw_trend,hd):
     #     periods = sys.argv[3]
     # if sys.argv.__len__() > 4:
     #     include_history = sys.argv[4]
-    print('@:%s',path)
     # 定义拟合模型
     predict_future = PredictFuture(file=path)
     # 构建待预测日期数据框，periods = 365 代表除历史数据的日期外再往后推 365 天
@@ -143,6 +148,8 @@ def predict(top,draw_forecast,draw_trend,hd):
         predict_future.drawForecast()
     if draw_trend and click.confirm('Do you want to show trend line?'):
         predict_future.drawTrend()
+    if save:
+        predict_future.saveDataFrame(save)
     if hd:
         click.echo('Prediction is a time series prediction model, which can be trained according to the set sample data, and the prediction results are given according to the given frequency and period.')
         click.echo('Description of parameters:')
