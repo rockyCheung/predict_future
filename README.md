@@ -6,6 +6,7 @@ predict 是一个时间序列预测模型，可以根据设定的样本数据进
 
 path 运行指令需要指定样本路径，样本数据必须是CSV格式，样本包括ds,y两列，ds标识数据采集时间，y为对应数据值
 freq 是指预测的频度，例如M代表以月为单位进行预测，D代表以日为单位进行预测，H代表小时，3D代表3天为单位，更为详细的说明请参见下表：
+
 |标识|含义|
 |:---|:---:|
 |B	|business day frequency|
@@ -35,6 +36,7 @@ freq 是指预测的频度，例如M代表以月为单位进行预测，D代表�
 |L, ms|	milliseconds|
 |U, us|	microseconds|
 |N  |nanoseconds|
+
 periods 是预测周期，freq为D则标识以样本最后一个时点为始，再往后推periods天进行预测，为M则往后推periods月进行预测
 include_history 是否包括节假日
 
