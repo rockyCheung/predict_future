@@ -3,7 +3,7 @@ import os
 
 def test_saveDataFrame():
     curdir = os.path.abspath(os.path.dirname(__file__))
-    path = os.path.join(curdir, 'AggregateFinancingtotheRealEconomy.csv')
+    path = os.path.join(curdir, 'sample/AggregateFinancingtotheRealEconomy.csv')
     predict_future = PredictFuture(file=path)
     predict_future.seeFuture(periods=20, freq='M', include_history=True)
     predict_future.saveDataFrame(curdir)

@@ -78,7 +78,7 @@ class PredictFuture(Prophet):
         plt.show()
     def saveDataFrame(self,path):
         generate_file_name = lambda name:'predict_'+ name + '.csv'
-        svaeFile = os.path.join(path, generate_file_name(str(time.time())))
+        svaeFile = os.path.join(path, generate_file_name(str(time.localtime(time.time()))))
         self._forecast.to_csv(svaeFile , index=False, header=False)
 
 '''

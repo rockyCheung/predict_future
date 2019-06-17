@@ -69,9 +69,9 @@ Do you want to show forecast line? [y/N]: y
 
 * 预测结果图示
 
-![预测结果](for_future/data/Figure_1.png)
+![预测结果](static/Figure_1.png)
 
 * 预测结果趋势以及周期效应
 
-![预测结果](for_future/data/Figure_2.png)
+![预测结果](static/Figure_2.png)
 
