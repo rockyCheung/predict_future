@@ -67,6 +67,8 @@ Do you want to show forecast line? [y/N]: y
 ```
 ## 预测结果
 
+### 社会融资规模增量趋势预测
+
 * 预测结果图示
 
 ![预测结果](static/Figure_1.png)
@@ -74,4 +76,38 @@ Do you want to show forecast line? [y/N]: y
 * 预测结果趋势以及周期效应
 
 ![预测结果](static/Figure_2.png)
+
+### 托邦股份未来200天股票走势
+
+* 上市到2019年6月17日股价变动数据
+
+sample/predict_2019-06-18 14:10:14.090169(002139).csv
+
+* 预测结果图示
+
+![预测结果](static/Figure_3.png)
+
+* 预测结果趋势以及周期效应
+
+![预测结果](static/Figure_4.png)
+
+### 红宝丽未来200天股票走势
+
+* 预测结果图示
+
+![预测结果](static/Figure_5.png)
+
+* 预测结果趋势以及周期效应
+
+![预测结果](static/Figure_6.png)
+
+### 贵州茅台未来200天股票走势
+
+* 预测结果图示
+
+![预测结果](static/Figure_7.png)
+
+* 预测结果趋势以及周期效应
+
+![预测结果](static/Figure_8.png)
 

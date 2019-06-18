@@ -9,3 +9,5 @@ sohot.db
 venv
 .idea
 __pycache__
+stock/*
+test_predict.py

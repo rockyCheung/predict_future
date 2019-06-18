@@ -23,15 +23,19 @@ class PredictFuture(Prophet):
             changepoint_prior_scale=0.05,
             mcmc_samples=0,
             interval_width=0.80,
-            uncertainty_samples=1000,file=''):
+            uncertainty_samples=1000,file=None,data_frame = None):
 
         self._file = file
-        if not os.path.exists(file):
+        if file is not None and not os.path.exists(file):
             curdir = os.path.abspath(os.path.dirname(__file__))
             self._file = os.path.join(curdir, file)
-        if os.access(self._file, os.R_OK):
+        if file is not None and  os.access(self._file, os.R_OK):
+            # logger.info('@@@@@@@@@@@@@@@@@@@@@@@')
             self._df = pd.read_csv(self._file)
             self._df.head()
+        elif data_frame is not None:
+            # logger.info('@@',data_frame)
+            self._df = data_frame
         else:
             raise Exception('Can\'t found the file %s',self._file)
         super().__init__(growth,
@@ -123,7 +127,7 @@ freq :
               help='Save result path.')
 @click.option('--hd', type=bool , is_flag=False , prompt=False,
               help='Show the help detail.')
-def predict(top,draw_forecast,draw_trend,save,hd):
+def predict_command(top,draw_forecast,draw_trend,save,hd):
     path = click.prompt('Please enter sample CSV file path', type=str)
     freq = click.prompt('Please enter freq,freq choice [M,D,3M,5D,H...]', type=str)
     periods = click.prompt('Please enter periods', type=int)  

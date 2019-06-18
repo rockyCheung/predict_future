@@ -38,7 +38,7 @@ setup(
     author_email='274935730@qq.com',
     license='PSF',
     packages=find_packages(exclude=['contrib', 'docs', 'test']),
-    install_requires=['fbprophet>=0.5','plotly>=3.10.0'],
+    install_requires=['fbprophet>=0.5','plotly>=3.10.0','lxml==4.3.4'],
     package_data={
         # If any package contains *.txt or *.rst files, include them:
         '': ['*.txt', '*.rst','tmplate_conf.yml','*.md'],
@@ -52,7 +52,7 @@ setup(
     scripts = [],
     entry_points = {
         'console_scripts': [
-            'predict = for_future.predict:predict'
+            'predict = for_future.predict:predict_command'
          ]
      }
 )
