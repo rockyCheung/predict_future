@@ -12,9 +12,9 @@ def test_saveDataFrame():
     predict_future.saveDataFrame(curdir)
 
 def test_stock_predict():
-    stock_code = '600519'
+    stock_code = '600031'
     obj = StockData(stock_code)  # 创建股票交易类对象
-    data = obj.history(start='2001-08-27', end='2019-06-17')  # 获取浦发银行2019年1月份的历史数据
+    data = obj.history(start='2007-06-10', end='2019-06-17')  # 获取浦发银行2019年1月份的历史数据
     ds = {'ds':data['date'],'y':data['close']}
     predict_data = pd.DataFrame(ds)
     #保存查询数据到csv文件
@@ -31,7 +31,19 @@ def test_stock_predict():
     # predict_future.saveDataFrame(curdir)
     # print(data)
     # obj.output()  # 输出结果
+def test_money_supply():
+    curdir = os.path.abspath(os.path.dirname(__file__))
+    file_path = os.path.join(curdir,'sample/money_supply.csv')
+    data = pd.read_csv(file_path)
+    ds = {'ds':data['time'],'y':data['M2']}
+    predict_data = pd.DataFrame(ds)
+    # 预测数据
+    predict_future = PredictFuture(data_frame=predict_data)
+    predict_future.seeFuture(periods=18, freq='M', include_history=True)
+    predict_future.drawForecast()
+    predict_future.drawTrend()
 
 if __name__ == '__main__':
     # test_saveDataFrame()
-    test_stock_predict()
+    # test_stock_predict()
+    test_money_supply()
