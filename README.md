@@ -93,23 +93,39 @@ sample/predict_2019-06-18 14:10:14.090169(002139).csv
 
 ### 红宝丽未来200天股票走势
 
-* 预测结果图示
+* Linear Regression预测结果图示
 
 ![预测结果](static/Figure_5.png)
 
-* 预测结果趋势以及周期效应
+* Logistic Regression预测结果图示
+
+![预测结果](static/Figure_21.png)
+
+* Linear Regression预测结果趋势以及周期效应
 
 ![预测结果](static/Figure_6.png)
 
+* Logistic Regression预测结果趋势以及周期效应
+
+![预测结果](static/Figure_22.png)
+
 ### 贵州茅台未来200天股票走势
 
-* 预测结果图示
+* Linear Regression预测结果图示
 
 ![预测结果](static/Figure_7.png)
 
-* 预测结果趋势以及周期效应
+* Logistic Regression预测结果图示
+
+![预测结果](static/Figure_19.png)
+
+* Linear Regression预测结果趋势以及周期效应
 
 ![预测结果](static/Figure_8.png)
+
+* Logistic Regression预测结果趋势以及周期效应
+
+![预测结果](static/Figure_20.png)
 
 ### 三一重工未来200天股票走势
 
@@ -117,13 +133,13 @@ sample/predict_2019-06-18 14:10:14.090169(002139).csv
 
 ![预测结果](static/Figure_9.png)
 
-* Linear Regression预测结果趋势以及周期效应
-
-![预测结果](static/Figure_10.png)
-
 * Logistic Regression预测结果图示
 
 ![预测结果](static/Figure_17.png)
+
+* Linear Regression预测结果趋势以及周期效应
+
+![预测结果](static/Figure_10.png)
 
 * Logistic Regression预测结果趋势以及周期效应
 
