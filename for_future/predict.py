@@ -7,6 +7,7 @@ from for_future import logger
 import click
 from datetime import *
 
+
 class PredictFuture(Prophet):
     def __init__(self,
             growth='linear',
@@ -23,8 +24,9 @@ class PredictFuture(Prophet):
             changepoint_prior_scale=0.05,
             mcmc_samples=0,
             interval_width=0.80,
-            uncertainty_samples=1000,file=None,data_frame = None):
-
+            uncertainty_samples=1000,file=None,data_frame = None,distortion = 0.001):
+        #如果为logistic，则会检查cap是否会小于等于floor，如果存在则会将floor-distortion作为新的floor
+        self._distortion = distortion
         self._file = file
         if file is not None and not os.path.exists(file):
             curdir = os.path.abspath(os.path.dirname(__file__))
@@ -53,12 +55,18 @@ class PredictFuture(Prophet):
               uncertainty_samples)
 
     def seeFuture(self,periods, freq, include_history):
+        # 检查cap是否会小于等于floor，如果存在则会将floor-distortion作为新的floor
+        if self.growth == 'logistic' and 'floor' in self._df:
+            self._df['floor'] = self._df.apply(lambda x: self.checkCapFloor(x.cap, x.floor), axis=1)
         # 训练模型
         self.fit(self._df)
         # 构建待预测日期数据框，periods = 365 代表除历史数据的日期外再往后推 365 天
         self._future = self.make_future_dataframe(periods, freq, include_history)
         if self.growth == 'logistic':
             self._future['cap'] = self._df['cap']
+            if 'floor' in self._df:
+                self._future['floor'] = self._df['floor']
+
         predict_set = self._future.tail()
         logger.info(
             '\n##################################################################构建预测集-start##############################################################################')
@@ -84,6 +92,12 @@ class PredictFuture(Prophet):
         generate_file_name = lambda name:'predict_'+ name + '.csv'
         svaeFile = os.path.join(path, generate_file_name(str(datetime.now())))
         self._forecast.to_csv(svaeFile , index=False, header=False)
+
+    def checkCapFloor(self , cap , floor):
+        if cap <= floor:
+            return floor - self._distortion
+        else:
+            return floor
 
 '''
 freq :
@@ -131,7 +145,9 @@ def predict_command(top,draw_forecast,draw_trend,save,hd):
     path = click.prompt('Please enter sample CSV file path', type=str)
     freq = click.prompt('Please enter freq,freq choice [M,D,3M,5D,H...]', type=str)
     periods = click.prompt('Please enter periods', type=int)  
-    include_history = click.confirm('Whether or not include history?')
+    include_history = click.confirm('Whether or not include history?',type=bool)
+    growth = click.confirm('Please enter growth,you can input linear or logistic?', type=str)
+
     
     # if sys.argv.__len__() > 1:
     #     path = sys.argv[1]
@@ -142,7 +158,7 @@ def predict_command(top,draw_forecast,draw_trend,save,hd):
     # if sys.argv.__len__() > 4:
     #     include_history = sys.argv[4]
     # 定义拟合模型
-    predict_future = PredictFuture(file=path)
+    predict_future = PredictFuture(growth=growth,file=path)
     # 构建待预测日期数据框，periods = 365 代表除历史数据的日期外再往后推 365 天
     predict_future.seeFuture(periods, freq, include_history)
     if top:

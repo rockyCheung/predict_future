@@ -42,6 +42,8 @@ predict 是一个时间序列预测模型，可以根据设定的样本数据进
 
 * include_history 是否包括节假日
 
+* growth 可以选择输入logistic或linear
+
 ## option
 
 * top
