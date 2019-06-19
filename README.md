@@ -113,13 +113,24 @@ sample/predict_2019-06-18 14:10:14.090169(002139).csv
 
 ### 三一重工未来200天股票走势
 
-* 预测结果图示
+* Linear Regression预测结果图示
 
 ![预测结果](static/Figure_9.png)
 
-* 预测结果趋势以及周期效应
+* Linear Regression预测结果趋势以及周期效应
 
 ![预测结果](static/Figure_10.png)
+
+* Logistic Regression预测结果图示
+
+![预测结果](static/Figure_17.png)
+
+* Logistic Regression预测结果趋势以及周期效应
+
+![预测结果](static/Figure_18.png)
+
+
+
 
 ### 国家货币供给情况分析
 

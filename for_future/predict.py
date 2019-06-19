@@ -30,11 +30,9 @@ class PredictFuture(Prophet):
             curdir = os.path.abspath(os.path.dirname(__file__))
             self._file = os.path.join(curdir, file)
         if file is not None and  os.access(self._file, os.R_OK):
-            # logger.info('@@@@@@@@@@@@@@@@@@@@@@@')
             self._df = pd.read_csv(self._file)
             self._df.head()
         elif data_frame is not None:
-            # logger.info('@@',data_frame)
             self._df = data_frame
         else:
             raise Exception('Can\'t found the file %s',self._file)
@@ -59,6 +57,8 @@ class PredictFuture(Prophet):
         self.fit(self._df)
         # 构建待预测日期数据框，periods = 365 代表除历史数据的日期外再往后推 365 天
         self._future = self.make_future_dataframe(periods, freq, include_history)
+        if self.growth == 'logistic':
+            self._future['cap'] = self._df['cap']
         predict_set = self._future.tail()
         logger.info(
             '\n##################################################################构建预测集-start##############################################################################')
