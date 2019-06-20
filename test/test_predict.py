@@ -12,9 +12,9 @@ def test_saveDataFrame():
     predict_future.saveDataFrame(curdir)
 
 def test_stock_predict():
-    stock_code = '300346'
+    stock_code = '000166'
     obj = StockData(stock_code)  # 创建股票交易类对象
-    data = obj.history(start='2012-08-07', end='2019-06-19')  # 获取浦发银行2019年1月份的历史数据
+    data = obj.history(start='2015-01-26', end='2019-06-19')  # 获取浦发银行2019年1月份的历史数据
     ds = {'ds':data['date'],'y':data['close'] ,'cap':data['high'] , 'floor':data['low'], 'low':data['low']}
     predict_data = pd.DataFrame(ds)
     #保存查询数据到csv文件
@@ -24,7 +24,7 @@ def test_stock_predict():
     predict_data.to_csv(svaeFile, index=False, header=False)
     #预测数据
     predict_future = PredictFuture(growth='logistic',data_frame=predict_data)
-    predict_future.seeFuture(periods=200, freq='D', include_history=True)
+    predict_future.seeFuture(periods=800, freq='D', include_history=True)
     predict_future.drawForecast()
     predict_future.drawTrend()
 
