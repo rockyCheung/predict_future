@@ -12,12 +12,11 @@ def test_saveDataFrame():
     predict_future.saveDataFrame(curdir)
 
 def test_stock_predict():
-    stock_code = '002165'
+    stock_code = '002792'
     obj = StockData(stock_code)  # 创建股票交易类对象
-    data = obj.history(start='2007-09-13', end='2019-06-18')  # 获取浦发银行2019年1月份的历史数据
+    data = obj.history(start='2016-03-28', end='2019-06-19')  # 获取浦发银行2019年1月份的历史数据
     ds = {'ds':data['date'],'y':data['close'] ,'cap':data['high'] , 'floor':data['low'], 'low':data['low']}
     predict_data = pd.DataFrame(ds)
-    # predict_data['floor'] = predict_data.apply(lambda x: checkCapFloor(x.cap, x.low), axis=1)
     #保存查询数据到csv文件
     curdir = os.path.abspath(os.path.dirname(__file__))
     generate_file_name = lambda name: 'predict_' + name + '(' +stock_code+ ')' + '.csv'
