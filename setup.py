@@ -38,7 +38,7 @@ setup(
     author_email='274935730@qq.com',
     license='PSF',
     packages=find_packages(exclude=['contrib', 'docs', 'test']),
-    install_requires=['fbprophet>=0.5','plotly>=3.10.0','lxml==4.3.4'],
+    install_requires=['fbprophet>=0.5','plotly>=3.10.0','lxml==4.6.2'],
     package_data={
         # If any package contains *.txt or *.rst files, include them:
         '': ['*.txt', '*.rst','tmplate_conf.yml','*.md'],
